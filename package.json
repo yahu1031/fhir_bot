@@ -10,8 +10,11 @@
   "author": "minnu",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3",
+    "discord-buttons": "^3.2.1",
+    "discord.js": "^13.0.0-dev.0d0c8f07f2535dd315ca95abe35e848c13d0ddf5",
     "dotenv": "^10.0.0",
+    "eslint": "^7.29.0",
+    "fs": "0.0.1-security",
     "nodemon": "^2.0.7"
   }
 }
