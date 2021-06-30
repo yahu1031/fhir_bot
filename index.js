@@ -18,12 +18,24 @@ const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 client.commands = new Discord.Collection();
 
 //  ! Retrieving all command files.
-const commandFiles = fs.readdirSync('./operations').filter(file => file.endsWith('.js'));
+const operationFiles = fs.readdirSync('./operations').filter(operationFile => operationFile.endsWith('.js'));
+const moderationFiles = fs.readdirSync('./moderation').filter(moderationFile => moderationFile.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(commandFile => commandFile.endsWith('.js'));
 
 //  ! Dynamically setting commands to the Collection.
-for (const file of commandFiles) {
-    const command = require(`./operations/${file}`);
-    client.commands.set(command.name, command);
+for (const operationFile of operationFiles) {
+    const operation = require(`./operations/${operationFile}`);
+    client.commands.set(operation.name, operation);
+}
+
+for (const commandFile of commandFiles) {
+    const userCommand = require(`./operations/${commandFile}`);
+    client.commands.set(userCommand.name, userCommand);
+}
+
+for (const moderationFile of moderationFiles) {
+    const moderation = require(`./moderation/${moderationFile}`);
+    client.commands.set(moderation.name, moderation);
 }
 
 client.on('ready', () => {
