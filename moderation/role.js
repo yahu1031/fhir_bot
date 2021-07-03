@@ -48,7 +48,7 @@ module.exports = {
                                 return message.channel.send('Sorry! no such role exist in server.');
                             }
                             const guildRole = message.guild.roles.cache.find(role => role.name === args[2]);
-                            if (guildMember.nickname.includes(guildRole.name.toUpperCase())) {
+                            if (guildMember.nickname && guildMember.nickname.includes(guildRole.name.toUpperCase())) {
                                 guildMember.setNickname(null);
                             }
                             guildMember.roles.remove(guildRole);

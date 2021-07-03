@@ -32,6 +32,43 @@ module.exports = (client) => {
                     ],
                 });
         }
+        else if (interaction.customID.includes('role_yes')) {
+            try {
+                const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
+                const guildMember = interaction.guild.members.cache.get(interaction.user.id);
+                console.log(guildRole);
+                console.log(guildMember);
+                if (!guildRole) {
+                    try {
+                        await interaction.guild.roles.create(
+                            {
+                                name: interaction.customID.split('_')[0],
+                                color: 'RANDOM',
+                            });
+                        await interaction.deferUpdate();
+                        await interaction.message.delete();
+                        await interaction.message.channel.send(`Successfully muted ${guildMember.user.username}`);
+                    }
+                    catch (err) {
+                        return interaction.message.channel.send(`💔 Error: ${err.message}`);
+                    }
+                }
+            }
+            catch (err) {
+                return interaction.message.channel.send(`💔 Error: ${err.message}`);
+            }
+        }
+        else if (interaction.customID.includes('role_no')) {
+            try {
+                const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
+                const guildMember = interaction.guild.members.cache.get(interaction.user.id);
+                console.log(guildRole);
+                console.log(guildMember);
+            }
+            catch (err) {
+                return interaction.message.channel.send(`💔 Error: ${err.message}`);
+            }
+        }
         else if (interaction.customID.includes('_reject')) {
             await interaction.deferUpdate();
             interaction.message.delete();

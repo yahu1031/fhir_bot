@@ -8,6 +8,7 @@
         "ecmaVersion": 2019
     },
     "rules": {
+        "require-await": "warn",
         "brace-style": [
             "error",
             "stroustrup",
@@ -86,14 +87,6 @@
             "always"
         ],
         "space-before-blocks": "error",
-        "space-before-function-paren": [
-            "error",
-            {
-                "anonymous": "never",
-                "named": "never",
-                "asyncArrow": "always"
-            }
-        ],
         "space-in-parens": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",
