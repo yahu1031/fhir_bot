@@ -5,7 +5,7 @@ module.exports = {
     args: true,
     async execute(client, message, args) {
         if (message.author.bot) return;
-        if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send('Sorry, we don\'t think you are one of the admins to ban the user.');
+        if (!message.member.permissions.has('BAN_MEMBERS')) return;
         const mentionMember = message.mentions.members.first();
         let banReason = args.slice(1).join(' ');
         if (!banReason) banReason = 'No reason was provided';

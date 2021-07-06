@@ -5,7 +5,7 @@ module.exports = {
     args: true,
     async execute(client, message, args) {
         if (message.author.bot) return;
-        if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send('Sorry, we don\'t think you are one of the admins to kick.');
+        if (!message.member.permissions.has('KICK_MEMBERS')) return;
         const guildMember = message.mentions.members.first();
         let kickReason = args.slice(1).join(' ');
         if (!kickReason) kickReason = 'No reason was provided';

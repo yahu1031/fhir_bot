@@ -6,6 +6,7 @@ module.exports = {
     args: true,
     async execute(client, message = new Message(), args) {
         if (message.author.bot) return;
+        if (!message.member.permissions.has('MANAGE_ROLES')) return;
         // const roles = [];
         if (message.content.startsWith(client.prefix)) {
             const cmd_name = message.content.trim().substring(client.prefix.length)

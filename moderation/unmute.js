@@ -5,9 +5,7 @@ module.exports = {
     args: true,
     async execute(client, message, args) {
         if (message.author.bot) return;
-        if (!message.member.permissions.has('MUTE_MEMBERS')) {
-            return message.channel.send('Sorry, we don\'t think you are one of the admins to unmute.');
-        }
+        if (!message.member.permissions.has('MUTE_MEMBERS')) return;
         const guildMember = message.mentions.members.first();
         if (!guildMember) return message.channel.send('Whom do you want to unmute?');
         let unmuteReason = args.slice(1).join(' ');
