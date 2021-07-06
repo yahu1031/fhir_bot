@@ -19,7 +19,7 @@ module.exports = {
         if (!args[0]) return message.channel.send('Please specify the user.');
         if (!guildMember) return message.channel.send('User not found in the guild.');
         try {
-            await guildMember.send({ embeds: [warnEmbed] }).then(async () => {
+            await guildMember.send({ embeds: [warnEmbed] }).then(() => {
                 return message.channel.send(`Successfully warned **${guildMember.user.username}**.`);
             },
             );

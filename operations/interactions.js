@@ -1,14 +1,16 @@
+const Discord = require('discord.js');
 module.exports = (client) => {
-    client.on('interaction', async interaction => {
+    client.on('interaction', async (interaction = new Discord.ButtonInteraction()) => {
         /**
          * As the message is in DM we get GuildID null.
          * So we manually assigning the guildID.
          */
         interaction.guildID = process.env.GUILD_ID;
+        const user = interaction.guild.members.cache.get(interaction.user.id);
+        const guildMember = interaction.guild.members.cache.get(interaction.user.id);
 
         if (interaction.customID === 'acceptTC') {
             const role = interaction.guild.roles.cache.get(process.env.ROLE_ID);
-            const user = interaction.guild.members.cache.get(interaction.user.id);
             user.roles.add(role);
             interaction.message.components[0].components[0].setDisabled(true);
             await interaction.deferUpdate();
@@ -16,7 +18,6 @@ module.exports = (client) => {
         }
         else if (interaction.customID.includes('_accept')) {
             const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
-            const guildMember = interaction.guild.members.cache.get(interaction.user.id);
             guildMember.roles.add(guildRole);
             if (guildRole.name != 'member') {
                 guildMember.setNickname(`[${guildRole.name.toUpperCase()}] ${guildMember.user.username}`);
@@ -35,9 +36,6 @@ module.exports = (client) => {
         else if (interaction.customID.includes('role_yes')) {
             try {
                 const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
-                const guildMember = interaction.guild.members.cache.get(interaction.user.id);
-                console.log(guildRole);
-                console.log(guildMember);
                 if (!guildRole) {
                     try {
                         await interaction.guild.roles.create(
@@ -60,10 +58,7 @@ module.exports = (client) => {
         }
         else if (interaction.customID.includes('role_no')) {
             try {
-                const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
-                const guildMember = interaction.guild.members.cache.get(interaction.user.id);
-                console.log(guildRole);
-                console.log(guildMember);
+                return await interaction.message.channel.send('Role creation canclled');
             }
             catch (err) {
                 return interaction.message.channel.send(`💔 Error: ${err.message}`);
@@ -72,6 +67,39 @@ module.exports = (client) => {
         else if (interaction.customID.includes('_reject')) {
             await interaction.deferUpdate();
             interaction.message.delete();
+        }
+        else if (interaction.customID === '@Hacker_HackTCAccept') {
+            if (!user.roles.cache.get(client.hacker_role_id)) {
+                try {
+                    await user.roles.add(client.hacker_role_id);
+                    const guildHackRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
+                    await guildMember.setNickname(`[${guildHackRole.name.toUpperCase()}] ${guildMember.user.username}`);
+                    await interaction.reply(
+                        {
+                            content: 'Thank you, Welcome to FHIR @HACK.',
+                            ephemeral: true,
+                        },
+                    );
+                    return;
+                }
+                catch (err) {
+                    console.log(err.message);
+                }
+            }
+            return interaction.reply(
+                {
+                    content: 'You have already accepted the rules.',
+                    ephemeral: true,
+                },
+            );
+        }
+        else if (interaction.customID === '@Hacker_HackTCReject') {
+            return interaction.reply(
+                {
+                    content: 'Sorry, You need to agree to the rules to continue.',
+                    ephemeral: true,
+                },
+            );
         }
     });
 };

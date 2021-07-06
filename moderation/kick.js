@@ -10,7 +10,7 @@ module.exports = {
         let kickReason = args.slice(1).join(' ');
         if (!kickReason) kickReason = 'No reason was provided';
         const kickEmbed = new MessageEmbed()
-            .setTitle(`You were kick from ${message.guild.name}`)
+            .setTitle(`You were kicked from ${message.guild.name}`)
             .setDescription(`Reason: ${kickReason}`)
             .setColor('RANDOM').setTimestamp().setFooter(client.user.tag, client.user.displayAvatarURL());
         if (!args[0]) return message.channel.send('Please specify the user.');

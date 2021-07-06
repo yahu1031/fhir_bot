@@ -1,0 +1,86 @@
+{
+  "0": {
+    "question": "What is an @sign?",
+    "question_ref": [],
+    "answer": "An @sign is a handle (i.e. @alice) that functions as your digital identity. It uses end-to-end encryption to ensure that your data is 100% owned and controlled by you."
+  },
+  "1": {
+    "question": "How can I use my @sign?",
+    "question_ref": [],
+    "answer": "You can use your @sign with apps that have been developed on the @platform. But before you can start using these apps (find the full list here), you’ll need to activate your @sign by pairing it with an app."
+  },
+  "2": {
+    "question": "If someone knows my @sign, can they see all my information?",
+    "question_ref": [],
+    "answer": "Anyone who looks up your @sign can only view the information that you’ve made public through @wavi, an app that lets you set up and customize your public profile. You’ll have the freedom to adjust it as needed, and those changes will be viewable in a matter of seconds."
+  },
+  "3": {
+    "question": "How much does an @sign cost?",
+    "question_ref": [],
+    "answer": "We believe that everyone has a right to privacy, which is why we have the @sign-O-Matic, a free @sign generator. \nIf you want to secure a more customized @sign, custom @signs are available for between $10 and $5,000 (or even more!), depending on your desired level of customization. \nFor example, multiple words (i.e. your first name and last name) will cost $100, single words will be $1000 (because there are so few of these), and @signs with three characters will cost $5000. Unfortunately, you cannot buy a trademarked name, since the rights belong to the owner of that trademark. And yes, you can customize with emojis!"
+  },
+  "4": {
+    "question": "Can I transfer/sell my @sign to someone else?",
+    "question_ref": [],
+    "answer": "Yes! To transfer your @sign to someone else:\n\n1. Go to your dashboard.\n2. Select My @signs.\n3. Click on the @sign you want to transfer, then click on “Manage”.\n4. You will see an option that says “Transfer”. Type in the email you want to transfer the @sign to. The new @sign owner will have 60 days to accept your transfer request.\n\nWe are currently working on a way to safely sell @signs to others. At the moment, we recommend that you only sell @signs to those that you trust. "
+  },
+  "5": {
+    "question": "What do I have to do to renew my @sign?",
+    "question_ref": [],
+    "answer":"If you have a free @sign, you don’t need to worry about a thing.\n\nIf you have a paid @sign, you’ll need to renew it for $10 each year. (We don’t store payment details, so we’ll let you know when it’s time to renew your @sign.) Instead of letting an @sign sit and collect dust, we want @signs not currently in use to be made available to others."
+  },
+  "6": {
+    "question":"Will I be able to use my @sign with my current apps?",
+    "question_ref": [],
+    "answer":"We expect that many of your current apps will transition over time, as more of their customers transition to the @protocol and away from applications that store their data."
+  },
+  "7": {
+    "question":"I'm trying to use an @app but don't have an @sign. What should I do?",
+    "question_ref": [],
+    "answer":"You can either (1) create a free or custom @sign on our main site or (2) create a free @sign directly through our apps."
+  },
+  "8": {
+    "question":"How do I pair my @sign with an app for the first time?",
+    "question_ref": [],
+    "answer":"Using your @sign, email, or mobile number, log into your dashboard.\nIn your dashboard, click on “My @signs”.\nUnderneath the @sign you want to activate, click “Activate”. You will be presented with a loading screen. (If you have already activated your @sign, select “Click to Scan” instead.)\nOnce the QR code has loaded, open the app you want to pair your @sign with.\nIn the app, type in the @sign you want to pair.\nScan the QR code through the app, or save an image of the QR code and upload it to the app. (Check that you have allowed the app to access your camera. Otherwise, you will not be able to scan your QR code.)\nBe sure to save your @sign’s key somewhere secure.\n\nIf your @sign has already been activated with another app, just upload your key to sign into the app."
+  },
+  "9": {
+    "question":"What is a key and why does it matter?",
+    "question_ref": [],
+    "answer":"Each @sign has a unique key that is used to verify whether you are the @sign’s rightful owner. After first activating an @sign, be sure to save its corresponding key in a secure location. You’ll need it to sign back into the app or use other apps on the @platform."
+  },
+  "10": {
+    "question":"Where should I save my key?",
+    "question_ref": [],
+    "answer":"We recommend saving your key in a secure location on your device, such as Google Drive or your iCloud files.\n**For iOS:** After pressing “**Save**”, a screen with different save options will appear. To save your key to your iCloud files, scroll down and select “**Save to Files**”. Next, select “**iCloud Drive**” and press “**Save**”. You can also save your key to a different location of your choice — but make sure it’s somewhere secure!\n**For Android:** After pressing “**Save**”, a screen with different save options will appear. To save your key to your Google Drive, select “**Save to Drive**”. You will be given the option to change the document title but we recommend that you keep it as it is. Make sure the account selected is correct. To choose a specific folder in your drive, press “**My Drive**” under Folder, choose your preferred folder and then press select. Next, press “**Save**”.\n\nBy default, your saved key should be named in the following format: **@[YOURATSIGN]_key.atKeys**. You can rename, move, or make copies of your keys."
+  },
+  "11":{
+    "question":"How do I find my key?",
+    "question_ref":[],
+    "answer":"**For iOS:** Open the Files app on your phone to access your iCloud files. (If you don’t know where your Files app is, swipe left on your phone and search for “Files”.) In the Files app search bar, type in your @sign to find your key.\n\n**For Android:** Open the Drive app on your phone. (If you don’t know where your Drive app is, swipe down on your phone and search for “Drive”.) In the Drive app search bar, type in your @sign to find your key. If you renamed your key, type in the new key name instead."
+  },
+  "12":{
+      "question":"Why do you ask for my email/phone number when I make an @sign?",
+      "question_ref": [],
+      "answer":"Your email or phone number is linked to your @sign to ensure that you are the only one who can activate, delete, or transfer your @signs. This also lets us notify you when your @signs are ready for renewal.\n\nNote: We do not share your personal information or use it for financial gain."
+  },
+  "13":{
+      "question":"How are @apps different from what is available today?",
+      "question_ref": [],
+      "answer":"You’ll have total privacy and utmost control over your data while using an @app. No one will ever spy on you or misuse your information. Since @apps use your @sign as a proxy for your digital identity, you won’t ever have to create a new username or password while using an @app."
+  },
+  "14":{
+      "question":"Will there be @apps for businesses and corporations?",
+      "question_ref": [],
+      "answer":"Glad you asked! Many of our @apps can be used in a business context as well. For example, you can set up an @wavi page for your business, or use @mosphere to transfer files from one business account to another."
+  },
+  "15":{
+      "question":"How will I know when new apps are available?",
+      "question_ref": [],
+      "answer":"Yes! When you sign up for your @sign, you’ll see a checkbox that gives us permission to notify you when we have new apps. Please make sure that box is checked if you want to stay updated. (You can also subscribe to our newsletter @news: News for Internet Optimists to receive monthly updates!)."
+  },
+  "name": "faq",
+  "home_url": "https://atsign.com",
+  "dev_url": "https://atsign.dev",
+  "faq_url": "https://atsign.com/faqs"
+}

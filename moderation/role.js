@@ -74,9 +74,10 @@ module.exports = {
                                                 name: args[1],
                                                 color: args[2].toUpperCase(),
                                             });
+                                        return message.channel.send(`**${args[1]}** Role has been created.`);
                                     }
                                     else {
-                                        message.channel.send('Role already exist, use it or create a new role.');
+                                        return message.channel.send('Role already exist, use it or create a new role.');
                                     }
                                 }
                                 else {
@@ -84,7 +85,7 @@ module.exports = {
                                 }
                             }
                             catch (err) {
-                                console.error(err.message);
+                                return console.error(err.message);
                             }
                         }
                         else if (args[0] === 'help') {

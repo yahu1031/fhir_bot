@@ -7,7 +7,7 @@ const client = new Discord.Client(
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
     },
 );
-const welcome = require('./operations/welcome');
+// const welcome = require('./operations/welcome');
 const interactions = require('./operations/interactions');
 // const twitter = require('./operations/tweets');
 
@@ -23,6 +23,9 @@ client.maintainerID = process.env.MAINTAINER;
 client.flutterApi = process.env.FLUTTER_API;
 client.docsLink = process.env.DOCS_BASE_URL;
 client.hackthon_category = process.env.HACKATHON_CATEGORY;
+client.tickets_category = process.env.TICKETS_CATEGORY;
+client.hackthon_rules_channel = process.env.HACKATHON_RULES_CHANNEL;
+client.hacker_role_id = process.env.HACKER_ROLE_ID;
 client.version = '0.0.1-alpha';
 
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -34,7 +37,7 @@ client.commands = new Discord.Collection();
 const operationFiles = fs.readdirSync('./operations').filter(operationFile => operationFile.endsWith('.js'));
 const moderationFiles = fs.readdirSync('./moderation').filter(moderationFile => moderationFile.endsWith('.js'));
 const commandFiles = fs.readdirSync('./commands').filter(commandFile => commandFile.endsWith('.js'));
-const flutterFiles = fs.readdirSync('./flutter').filter(flutterFile => flutterFile.endsWith('.js'));
+// const flutterFiles = fs.readdirSync('./flutter').filter(flutterFile => flutterFile.endsWith('.js'));
 
 //  ! Dynamically setting commands to the Collection.
 for (const operationFile of operationFiles) {
@@ -52,10 +55,10 @@ for (const moderationFile of moderationFiles) {
     client.commands.set(moderation.name, moderation);
 }
 
-for (const flutterFile of flutterFiles) {
-    const flutter = require(`./flutter/${flutterFile}`);
-    client.commands.set(flutter.name, flutter);
-}
+// for (const flutterFile of flutterFiles) {
+//     const flutter = require(`./flutter/${flutterFile}`);
+//     client.commands.set(flutter.name, flutter);
+// }
 
 client.on('ready', () => {
     try {
@@ -69,7 +72,7 @@ client.on('ready', () => {
             status: 'online',
         });
         console.log(`${client.user.tag} Bot is ready`);
-        welcome(client);
+        // welcome(client);
         interactions(client);
         // twitter(client);
     }
@@ -91,39 +94,28 @@ process.on('unhandledRejection', error => {
 //  ! Listening to messages
 client.on('message', message => {
     const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(client.prefix)})\\s*`);
-    if (message.channel.parentID != client.hackthon_category) return;
+    // if (message.channel.parentID != client.hackthon_category) return;
     // ! This makes your bot ignore other bots and itself
     // ! and not get into a spam loop (we call that "botception").
     if (message.author.bot || message.content.includes('@everyone') || message.content.includes('@here')) return;
     if (!prefixRegex.test(message.content)) return;
     const args = message.content.slice(client.prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
-    const command = client.commands.get(commandName);
-    if (message.mentions.has(client.user.id)) {
-        client.commands.get('mention').execute(message);
-    }
-    else if (message.channel.type === 'dm') {
-        if (message.author.bot) return;
-        return message.reply(`Sorry ${message.author}! I can't reply you here. Ask in the server, I can help you there.`);
-    }
-    else if (message.content.includes(client.prefix + 'version')) {
+    const command = client.commands.get(commandName)
+        || client.commands.find(a => a.aliases && a.aliases.includes(commandName));
+    if (message.content.includes(client.prefix + 'version')) {
         return message.reply(`My current version is ${client.version} 😎`);
     }
     else {
         if (!client.commands.has(commandName) || !message.content.startsWith(client.prefix)) return;
-        if (command.args && args.length) {
-            try {
-                command.execute(client, message, args);
-            }
-            catch (error) {
-                console.error(error.message);
-                return message.channel.send(`There was an error trying to execute that command!, <@${client.maintainerID}> will check it.`);
-            }
-            return;
+        try {
+            command.execute(client, message, args);
         }
-        else {
-            return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+        catch (error) {
+            console.error(error.message);
+            return message.channel.send(`There was an error trying to execute that command!, <@${client.maintainerID}> will check it.`);
         }
+        return;
     }
 });
 
