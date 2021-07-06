@@ -1,10 +1,10 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed, Message } = require('discord.js');
 
 module.exports = {
     name: 'role',
     description: 'This command will manager roles.',
     args: true,
-    execute(client, message, args) {
+    async execute(client, message = new Message(), args) {
         if (message.author.bot) return;
         // const roles = [];
         if (message.content.startsWith(client.prefix)) {
@@ -24,7 +24,7 @@ module.exports = {
                             if (checkRole === undefined) {
                                 return message.channel.send('Sorry! no such role exist in server.');
                             }
-                            guildMember.send({
+                            return await guildMember.send({
                                 content: `Hello ${guildMember.user.username}! You are requested to join as ${args[2]}`,
                                 components: [new MessageActionRow()
                                     .addComponents([
@@ -49,10 +49,10 @@ module.exports = {
                             }
                             const guildRole = message.guild.roles.cache.find(role => role.name === args[2]);
                             if (guildMember.nickname && guildMember.nickname.includes(guildRole.name.toUpperCase())) {
-                                guildMember.setNickname(null);
+                                await guildMember.setNickname(null);
                             }
-                            guildMember.roles.remove(guildRole);
-                            message.channel.send(`Removed **${guildRole.name.toUpperCase()}** role for ${guildMember.user.username}.`);
+                            await guildMember.roles.remove(guildRole);
+                            return message.channel.send(`Removed **${guildRole.name.toUpperCase()}** role for ${guildMember.user.username}.`);
                         }
                         else if (args[0] === 'create') {
                             if (args[1] === 'help') {
@@ -61,7 +61,6 @@ module.exports = {
                                     .setTitle('Create role usage')
                                     .setDescription('**EG:** !role create role_name color');
                                 return message.channel.send({
-                                    ephemeral: true,
                                     embeds: [embed],
                                 });
                             }
@@ -99,11 +98,23 @@ module.exports = {
                                 .setDescription('**EG:** !role action 876xxxUSERxIDxxx role')
                                 .addFields(
                                     {
-                                        name: 'Action',
-                                        value: 'We have 3 actions - add, remove, create',
+                                        name: 'add',
+                                        value: 'Requests the user to get on to the role. EG: !role add user_id role_name',
                                     },
                                     {
-                                        name: 'role',
+                                        name: 'create',
+                                        value: 'Creates a new role. EG: !role create role_name color',
+                                    },
+                                    {
+                                        name: 'remove',
+                                        value: 'Remvoes the role for the user. EG: !role remove 98xxxxUSERxxIDxxx role_name',
+                                    },
+                                    {
+                                        name: 'delete',
+                                        value: 'Deletes the role from the guild. EG: !role delete role_name',
+                                    },
+                                    {
+                                        name: 'Roles List',
                                         value: rolemap,
                                     },
                                 );
@@ -113,12 +124,22 @@ module.exports = {
                                 embeds: [embed],
                             });
                         }
+                        else if (args[0] === 'delete') {
+                            const deleteRole = message.guild.roles.cache.find(x => x.name === args[1]);
+                            if (deleteRole) {
+                                await deleteRole.delete();
+                                return message.channel.send(`**${args[1]}** Role has been deleted.`);
+                            }
+                            else {
+                                return message.channel.send(`Sorry, No such **${args[1]}** role found in guild.`);
+                            }
+                        }
                         else {
-                            message.channel.send('No such command found.');
+                            return message.channel.send('No such command found.');
                         }
                     }
                     else {
-                        message.channel.send('Missing arguments, check with `!role help`.');
+                        return message.channel.send('Missing arguments, check with `!role help`.');
                     }
                 }
                 else {
@@ -126,7 +147,7 @@ module.exports = {
                 }
             }
             else {
-                message.channel.send('No such command found');
+                return message.channel.send('No such command found');
             }
         }
     },
