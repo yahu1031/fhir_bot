@@ -26,6 +26,7 @@ client.hackthon_category = process.env.HACKATHON_CATEGORY;
 client.tickets_category = process.env.TICKETS_CATEGORY;
 client.hackthon_rules_channel = process.env.HACKATHON_RULES_CHANNEL;
 client.hacker_role_id = process.env.HACKER_ROLE_ID;
+client.at_support_channel = process.env.AT_SUPPORT_CHANNEL;
 client.version = '0.0.1-alpha';
 
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

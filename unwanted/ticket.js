@@ -6,6 +6,7 @@ module.exports = {
     aliases: [],
     permissions: [],
     async execute(client, message = new Discord.Message()) {
+        if (message.channel.id != client.at_support_channel) return;
         const channel = await message.guild.channels.create(`ticket: ${message.author.tag}`);
         try {
             await channel.setParent(client.tickets_category);
