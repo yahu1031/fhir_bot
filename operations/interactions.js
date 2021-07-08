@@ -21,8 +21,11 @@ module.exports = (client) => {
             guildMember.roles.add(guildRole);
             if (guildRole.name != 'member') {
                 let nickname;
+                if(guildRole.name === 'Moderator'){
+                    nickname = 'Mod';
+                }
                 if (guildRole.name.includes('@')) {
-                    nickname = guildRole.name.charAt(1).toUpperCase() + guildRole.name.slice(1);
+                    nickname = guildRole.name.charAt(1).toUpperCase() + guildRole.name.slice(2);
                 }
                 nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
                 await guildMember.setNickname(`[${nickname}] ${guildMember.user.username}`);
