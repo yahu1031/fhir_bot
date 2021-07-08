@@ -25,7 +25,7 @@ module.exports = (client) => {
                     nickname = guildRole.name.charAt(1).toUpperCase() + guildRole.name.slice(2);
                 }
                 nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
-                if(guildRole.name === 'Moderator'){
+                if(guildRole.name === 'Moderator') {
                     nickname = 'Mod';
                 }
                 await guildMember.setNickname(`[${nickname}] ${guildMember.user.username}`);
