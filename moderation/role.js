@@ -25,7 +25,7 @@ module.exports = {
                             if (checkRole === undefined) {
                                 return message.channel.send('Sorry! no such role exist in server.');
                             }
-                            return await guildMember.send({
+                            await guildMember.send({
                                 content: `Hello ${guildMember.user.username}! You are requested to join as ${args[2]}`,
                                 components: [new MessageActionRow()
                                     .addComponents([
@@ -38,6 +38,7 @@ module.exports = {
                                     ]),
                                 ],
                             });
+                            return message.channel.send(`Send request to ${guildMember.user.username} to join as ${args[2]}.`);
                         }
                         else if (args[0] === 'remove' && guildMemberID.length === 18) {
                             const guildMember = message.guild.members.cache.get(guildMemberID);

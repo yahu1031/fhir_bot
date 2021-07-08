@@ -7,7 +7,6 @@ const client = new Discord.Client(
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
     },
 );
-// const welcome = require('./operations/welcome');
 const interactions = require('./operations/interactions');
 // const twitter = require('./operations/tweets');
 
@@ -20,6 +19,7 @@ client.welcome_channel = process.env.WELCOME_CHANNEL;
 client.rules_channel = process.env.RULES_CHANNEL;
 client.tweets_channel = process.env.TWEETS_CHANNEL;
 client.maintainerID = process.env.MAINTAINER;
+client.guildID = process.env.GUILD_ID;
 client.flutterApi = process.env.FLUTTER_API;
 client.docsLink = process.env.DOCS_BASE_URL;
 client.hackthon_category = process.env.HACKATHON_CATEGORY;

@@ -20,7 +20,12 @@ module.exports = (client) => {
             const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
             guildMember.roles.add(guildRole);
             if (guildRole.name != 'member') {
-                guildMember.setNickname(`[${guildRole.name.toUpperCase()}] ${guildMember.user.username}`);
+                let nickname;
+                if (guildRole.name.includes('@')) {
+                    nickname = guildRole.name.charAt(1).toUpperCase() + guildRole.name.slice(1);
+                }
+                nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
+                await guildMember.setNickname(`[${nickname}] ${guildMember.user.username}`);
             }
             interaction.message.components[0].components[0].setDisabled(true);
             interaction.message.components[0].components.length = 1;
@@ -73,7 +78,7 @@ module.exports = (client) => {
                 try {
                     await user.roles.add(client.hacker_role_id);
                     const guildHackRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
-                    await guildMember.setNickname(`[${guildHackRole.name.toUpperCase()}] ${guildMember.user.username}`);
+                    await guildMember.setNickname(`[${guildHackRole.name.charAt(0).toUpperCase() + guildHackRole.name.slice(1).toLowerCase()}] ${guildMember.user.username}`);
                     await interaction.reply(
                         {
                             content: 'Thank you, Welcome to FHIR @HACK.',
