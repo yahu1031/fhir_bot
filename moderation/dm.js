@@ -19,7 +19,10 @@ module.exports = {
             else {
                 const getData = message.guild.roles.cache.get(role.id);
                 getData.members.forEach(
-                    async member => await member.send(messageContent),
+                    async member => {
+                        if (member.user.bot) return;
+                        return await member.send(messageContent);
+                    },
                 );
                 return;
             }
