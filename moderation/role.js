@@ -9,7 +9,10 @@ module.exports = {
         if (!message.member.permissions.has('MANAGE_ROLES')) return;
         // const roles = [];
         if (message.content.startsWith(client.prefix)) {
-            const guildMember = message.mentions.users.first();
+            let guildMember = message.mentions.users.first();
+            if (guildMember === undefined) {
+                guildMember = message.guild.members.cache.get(args[1]);
+            }
             const roleName = message.mentions.roles.first().name;
             const cmd_name = message.content.trim().substring(client.prefix.length)
                 .split(/\s+/);
