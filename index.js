@@ -71,7 +71,7 @@ client.on('ready', () => {
             }],
             status: 'online',
         });
-        console.log(`${client.user.tag} Bot is ready`);
+        console.log(`${client.user.tag} Bot is ready - v${client.version}`);
         // welcome(client);
         interactions(client);
         // twitter(client);
