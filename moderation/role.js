@@ -10,7 +10,7 @@ module.exports = {
         // const roles = [];
         if (message.content.startsWith(client.prefix)) {
             const guildMember = message.mentions.users.first();
-            const roleName = args.slice(2).join(' ');
+            const roleName = message.mentions.roles.first().name;
             const cmd_name = message.content.trim().substring(client.prefix.length)
                 .split(/\s+/);
             if (cmd_name[0] === 'role') {

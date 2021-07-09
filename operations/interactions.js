@@ -18,7 +18,9 @@ module.exports = (client) => {
         }
         else if (interaction.customID.includes('_accept')) {
             const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
-            guildMember.roles.add(guildRole);
+            if (!guildMember.roles.cache.some(role => role.name === guildRole.name)) {
+                guildMember.roles.add(guildRole);
+            }
             if (guildRole.name != 'Guest') {
                 let nickname;
                 nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
