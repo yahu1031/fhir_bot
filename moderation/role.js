@@ -9,52 +9,52 @@ module.exports = {
         if (!message.member.permissions.has('MANAGE_ROLES')) return;
         // const roles = [];
         if (message.content.startsWith(client.prefix)) {
+            const guildMember = message.mentions.users.first();
+            const roleName = args.slice(2).join(' ');
             const cmd_name = message.content.trim().substring(client.prefix.length)
                 .split(/\s+/);
             if (cmd_name[0] === 'role') {
                 if (message.member.permissions.has('MANAGE_ROLES')) {
                     // Checking for the arguments.
                     if (args.length != 0) {
-                        const guildMemberID = args[1];
-                        if (args[0] === 'add' && guildMemberID.length === 18) {
-                            const guildMember = message.guild.members.cache.get(guildMemberID);
-                            if (guildMember === undefined || isNaN(guildMemberID)) {
+                        if (args[0] === 'add') {
+                            if (guildMember === undefined) {
                                 return message.channel.send('Sorry user not found.');
                             }
-                            const checkRole = message.guild.roles.cache.find(x => x.name === args[2]);
+                            const checkRole = message.guild.roles.cache.find(x => x.name === roleName);
                             if (checkRole === undefined) {
                                 return message.channel.send('Sorry! no such role exist in server.');
                             }
                             await guildMember.send({
-                                content: `Hello ${guildMember.user.username}! You are requested to join as ${args[2]}`,
+                                content: `Hello ${guildMember.username}! You are requested to join as ${roleName}`,
                                 components: [new MessageActionRow()
                                     .addComponents([
-                                        new MessageButton().setCustomID(`${args[2]}_accept`)
+                                        new MessageButton().setCustomID(`${roleName}_accept`)
                                             .setLabel('Accept')
                                             .setStyle('SUCCESS'),
-                                        new MessageButton().setCustomID(`${args[2]}_reject`)
+                                        new MessageButton().setCustomID(`${roleName}_reject`)
                                             .setLabel('Reject')
                                             .setStyle('DANGER'),
                                     ]),
                                 ],
                             });
-                            return message.channel.send(`Send request to ${guildMember.user.username} to join as ${args[2]}.`);
+                            return message.channel.send(`Send request to ${guildMember.username} to join as ${roleName}.`);
                         }
-                        else if (args[0] === 'remove' && guildMemberID.length === 18) {
-                            const guildMember = message.guild.members.cache.get(guildMemberID);
-                            if (guildMember === undefined || isNaN(guildMemberID)) {
+                        else if (args[0] === 'remove') {
+                            // const guildMember = message.guild.members.cache.get(guildMemberID);
+                            if (guildMember === undefined) {
                                 return message.channel.send('Sorry user not found.');
                             }
-                            const checkRole = message.guild.roles.cache.find(x => x.name === args[2]);
+                            const checkRole = message.guild.roles.cache.find(x => x.name === roleName);
                             if (checkRole === undefined) {
                                 return message.channel.send('Sorry! no such role exist in server.');
                             }
-                            const guildRole = message.guild.roles.cache.find(role => role.name === args[2]);
+                            const guildRole = message.guild.roles.cache.find(role => role.name === roleName);
                             if (guildMember.nickname && guildMember.nickname.includes(guildRole.name.toUpperCase())) {
                                 await guildMember.setNickname(null);
                             }
                             await guildMember.roles.remove(guildRole);
-                            return message.channel.send(`Removed **${guildRole.name.toUpperCase()}** role for ${guildMember.user.username}.`);
+                            return message.channel.send(`Removed **${guildRole.name.toUpperCase()}** role for ${guildMember.username}.`);
                         }
                         else if (args[0] === 'create') {
                             if (args[1] === 'help') {
@@ -67,13 +67,13 @@ module.exports = {
                                 });
                             }
                             try {
-                                if (args[1] != null && args[2] != null) {
+                                if (args[1] != null && roleName != null) {
                                     const checkRole = message.guild.roles.cache.find(x => x.name === args[1]);
                                     if (checkRole === undefined) {
                                         message.guild.roles.create(
                                             {
                                                 name: args[1],
-                                                color: args[2].toUpperCase(),
+                                                color: roleName.toUpperCase(),
                                             });
                                         return message.channel.send(`**${args[1]}** Role has been created.`);
                                     }
@@ -97,11 +97,11 @@ module.exports = {
                             const embed = new MessageEmbed()
                                 .setColor('#0099ff')
                                 .setTitle('Role command usage')
-                                .setDescription('**EG:** !role action 876xxxUSERxIDxxx role')
+                                .setDescription('**EG:** !role action @USER role')
                                 .addFields(
                                     {
                                         name: 'add',
-                                        value: 'Requests the user to get on to the role. EG: !role add user_id role_name',
+                                        value: 'Requests the user to get on to the role. EG: !role add @USER role_name',
                                     },
                                     {
                                         name: 'create',
@@ -109,7 +109,7 @@ module.exports = {
                                     },
                                     {
                                         name: 'remove',
-                                        value: 'Remvoes the role for the user. EG: !role remove 98xxxxUSERxxIDxxx role_name',
+                                        value: 'Remvoes the role for the user. EG: !role remove @USER role_name',
                                     },
                                     {
                                         name: 'delete',

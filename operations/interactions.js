@@ -19,16 +19,20 @@ module.exports = (client) => {
         else if (interaction.customID.includes('_accept')) {
             const guildRole = interaction.guild.roles.cache.find(role => role.name === interaction.customID.split('_')[0]);
             guildMember.roles.add(guildRole);
-            if (guildRole.name != 'member') {
+            if (guildRole.name != 'Guest') {
                 let nickname;
+                nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
                 if (guildRole.name.includes('@')) {
                     nickname = guildRole.name.charAt(1).toUpperCase() + guildRole.name.slice(2);
+                    await guildMember.setNickname(`[@${nickname}] ${guildMember.user.username}`);
                 }
-                nickname = guildRole.name.charAt(0).toUpperCase() + guildRole.name.slice(1);
-                if(guildRole.name === 'Moderator') {
-                    nickname = 'Mod';
+                else if (guildRole.name === 'Moderator') {
+                    await guildMember.setNickname(`[Mod] ${guildMember.user.username}`);
                 }
-                await guildMember.setNickname(`[${nickname}] ${guildMember.user.username}`);
+                else if (guildRole.name.includes(' ')) {
+                    nickname = guildRole.name.split(' ').map(t => t[0]).join('');
+                    await guildMember.setNickname(`[${nickname.toUpperCase()}] ${guildMember.user.username}`);
+                }
             }
             interaction.message.components[0].components[0].setDisabled(true);
             interaction.message.components[0].components.length = 1;
