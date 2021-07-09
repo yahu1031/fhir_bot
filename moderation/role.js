@@ -11,7 +11,7 @@ module.exports = {
         if (message.content.startsWith(client.prefix)) {
             let guildMember = message.mentions.users.first();
             if (guildMember === undefined) {
-                guildMember = message.guild.members.cache.get(args[1]);
+                guildMember = message.guild.members.cache.get(args[1]).user;
             }
             const roleName = message.mentions.roles.first().name;
             const cmd_name = message.content.trim().substring(client.prefix.length)
