@@ -32,10 +32,10 @@ module.exports = {
                                 content: `Hello ${guildMember.username}! You are requested to join as ${roleName}`,
                                 components: [new MessageActionRow()
                                     .addComponents([
-                                        new MessageButton().setCustomID(`${roleName}_accept`)
+                                        new MessageButton().setCustomId(`${roleName}_accept`)
                                             .setLabel('Accept')
                                             .setStyle('SUCCESS'),
-                                        new MessageButton().setCustomID(`${roleName}_reject`)
+                                        new MessageButton().setCustomId(`${roleName}_reject`)
                                             .setLabel('Reject')
                                             .setStyle('DANGER'),
                                     ]),

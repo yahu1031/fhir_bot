@@ -7,7 +7,7 @@ module.exports = (client) => {
             .setLabel('Join us here')
             .setStyle('LINK');
 
-        const acceptTC = new MessageButton().setCustomID('acceptTC')
+        const acceptTC = new MessageButton().setCustomId('acceptTC')
             .setLabel('Accept T&C')
             .setStyle('SUCCESS');
         const buttons = new MessageActionRow()

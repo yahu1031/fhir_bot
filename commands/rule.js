@@ -9,10 +9,10 @@ module.exports = {
         if (message.author.bot) return;
         if (!message.member.permissions.has('ADMINISTRATOR')) return;
         if (message.channel.id === client.hackthon_rules_channel) {
-            const acceptHackTC = new Discord.MessageButton().setCustomID('@Hacker_HackTCAccept')
+            const acceptHackTC = new Discord.MessageButton().setCustomId('@Hacker_HackTCAccept')
                 .setLabel('Accept T&C')
                 .setStyle('SUCCESS');
-            const rejectHackTC = new Discord.MessageButton().setCustomID('@Hacker_HackTCReject')
+            const rejectHackTC = new Discord.MessageButton().setCustomId('@Hacker_HackTCReject')
                 .setLabel('Decline')
                 .setStyle('DANGER');
             const hackButtons = new Discord.MessageActionRow()

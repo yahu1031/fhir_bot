@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const client = new Discord.Client(
     {
-        intents: [Discord.Intents.ALL],
+        intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INTEGRATIONS', 'GUILD_WEBHOOKS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_PRESENCES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'],
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
     },
 );
@@ -92,7 +92,7 @@ process.on('unhandledRejection', error => {
 });
 
 //  ! Listening to messages
-client.on('message', message => {
+client.on('messageCreate', message => {
     const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(client.prefix)})\\s*`);
     // if (message.channel.parentID != client.hackthon_category) return;
     // ! This makes your bot ignore other bots and itself

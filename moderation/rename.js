@@ -1,26 +1,31 @@
-const { Message } = require('discord.js');
+const { Message, GuildMember } = require('discord.js');
 
 module.exports = {
     name: 'rename',
     description: 'This command will rename the user nicknames.',
-    args: false,
+    args: true,
     async execute(client, message = new Message()) {
         if (message.author.bot) return;
         if (!message.member.permissions.has('ADMINISTRATOR')) return;
         const guildDATA = await client.guilds.fetch(client.guildID);
         const mem = await guildDATA.members.fetch();
-        let getNickName;
-        mem.forEach(async member => {
-            if ((member.nickname != undefined || member.nickname != null) && member.nickname.includes('[@')) {
-                if (member.nickname.split(' ')[0].includes('MODERATOR')) {
-                    getNickName = `[@Mod] ${member.user.username}`;
-                    await member.setNickname(getNickName);
-                    return message.channel.send('Nicknames were changed');
+        const chan = await message.mentions.channels.first();
+        mem.forEach(async (member = new GuildMember()) => {
+            // if (member.permissionsIn()) return;
+            try {
+                if (!member.user.bot && guildDATA.ownerId !== member.user.id) {
+                    if (chan && member.permissionsIn(chan).has('VIEW_CHANNEL')) {
+                        await member.setNickname(null);
+                    }
+                    else if (!chan) {
+                        await member.setNickname(null);
+                    }
                 }
-                getNickName = `[@${member.nickname.split(' ')[0].charAt(2).toUpperCase() + member.nickname.split(' ')[0].slice(3).toLowerCase()} ${member.user.username}`;
-                await member.setNickname(getNickName);
-                return message.channel.send('Nicknames were changed');
+            }
+            catch (err) {
+                console.error(`${member.nickname} or ${member.user.username} has error`);
             }
         });
+        return;
     },
 };

@@ -30,10 +30,10 @@ module.exports = {
                         return message.channel.send(`Successfully muted **${guildMember.user.username}**.`);
                     }
                     else {
-                        const doCreateMuteRole = new MessageButton().setCustomID('mute_role_yes')
+                        const doCreateMuteRole = new MessageButton().setCustomId('mute_role_yes')
                             .setLabel('Create')
                             .setStyle('SUCCESS');
-                        const noCreateMuteRole = new MessageButton().setCustomID('mute_role_no')
+                        const noCreateMuteRole = new MessageButton().setCustomId('mute_role_no')
                             .setLabel('No, Thank you')
                             .setStyle('DANGER');
                         const roleBtns = new MessageActionRow()
