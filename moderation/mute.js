@@ -1,10 +1,10 @@
 const ms = require('ms');
-const { MessageButton, MessageEmbed, MessageActionRow } = require('discord.js');
+const { MessageButton, MessageEmbed, MessageActionRow, Message } = require('discord.js');
 module.exports = {
     name: 'mute',
     description: 'This command will mute the user.',
     args: true,
-    async execute(client, message, args) {
+    async execute(client, message = new Message(), args) {
         if (message.author.bot) return;
         if (!message.member.permissions.has('MUTE_MEMBERS')) return;
         const guildMember = message.mentions.members.first();

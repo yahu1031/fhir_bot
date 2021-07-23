@@ -8,13 +8,18 @@ module.exports = {
         if (message.author.bot) return;
         if (!message.member.permissions.has('ADMINISTRATOR')) return;
         const guildDATA = await client.guilds.fetch(client.guildID);
+        // console.log(userRole);
         const mem = await guildDATA.members.fetch();
         const chan = await message.mentions.channels.first();
+        const userRole = await message.mentions.roles.first();
+        console.log(userRole.id);
         mem.forEach(async (member = new GuildMember()) => {
-            // if (member.permissionsIn()) return;
             try {
                 if (!member.user.bot && guildDATA.ownerId !== member.user.id) {
-                    if (chan && member.permissionsIn(chan).has('VIEW_CHANNEL')) {
+                    if (member.roles.cache.has(userRole.id)) {
+                        await member.setNickname(null);
+                    }
+                    else if (chan && member.permissionsIn(chan).has('VIEW_CHANNEL')) {
                         await member.setNickname(null);
                     }
                     else if (!chan) {
@@ -26,6 +31,6 @@ module.exports = {
                 console.error(`${member.nickname} or ${member.user.username} has error`);
             }
         });
-        return;
+        return message.channel.send('Nickname set to null');
     },
 };
